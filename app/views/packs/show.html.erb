@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-6">
+      <% if @pack.image.attached? %>
+        <img src="<%= url_for(@pack.image) %>" alt="">
+      <% else %>
+        <img src="https://via.placeholder.com/640x360?text=No+Image" alt="">
+      <% end %>
+    </div>
+    <div class="col-6">
+      <h3><%= @pack.product_name %></h3>
+      <p><%= @pack.company_name %></p>
+      <hr>
+      <h5>설명</h5>
+      <p><%= @pack.desc %></p>
+    </div>
+  </div>
+</div>
