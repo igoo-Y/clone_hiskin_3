@@ -9,6 +9,7 @@
           <div class="card-body">
             <h5 class="card-title"><%= pack.product_name %></h5>
             <p class="card-text"> <%= pack.company_name %></p>
+            <p class="card-text"> <%= number_to_currency(pack.price) %></p>
             <a href="/packs/<%=pack.id %>" class="btn btn-primary">상세보기</a>
           </div>
         </div>

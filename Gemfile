@@ -8,6 +8,8 @@ gem 'devise-i18n'
 gem 'activeadmin'
 gem 'bootstrap', '~> 5.0.1'
 gem 'jquery-rails'
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Use sqlite3 as the database for Active Record

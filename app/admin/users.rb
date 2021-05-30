@@ -8,8 +8,13 @@ ActiveAdmin.register User do
     column :phone
     column :address
     column :post_code
+    column "장바구니 유무" do |user|
+      user.carts.present?
+    end
 
-    actions
+    actions do |user|
+      a "장바구니 보기", href: "/admin/users/#{user.id}/carts"
+    end
   end
 
   # show
