@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="cal-12">
+      <h2>장바구니</h2>
+      <table class="table table-hover mt-3">
+        <thead>
+        <tr>
+          <th scope="col" style="width: 50%">제품명</th>
+          <th scope="col">가격</th>
+          <th scope="col">수량</th>
+          <th scope="col" style="width: 20%;">합계</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @carts.each do |cart| %>
+          <tr>
+            <td><%=cart.pack.product_name %></td>
+            <td><%= number_to_currency(cart.pack.price) %></td>
+            <td><%= cart.quantity %></td>
+            <td><%= number_to_currency(cart.pack.price * cart.quantity) %></td>
+            <td><a href="/carts/<%= cart.id %>" data-method="delete" data-confirm="삭제하시겠습니까?"><%= icon("fas", "times-circle") %></a></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

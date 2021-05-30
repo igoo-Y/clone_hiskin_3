@@ -10,6 +10,7 @@
         <a class="nav-link" href="#">Features</a>
         <a class="nav-link" href="#">Pricing</a>
         <% if user_signed_in? %>
+          <a class="nav-link" href="/carts"><%= icon("fas", "shopping-cart") %></a>
           <div class="dropdown">
             <a class="dropdown-toggle nav-link" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
               <%= current_user.email %>

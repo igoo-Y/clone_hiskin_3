@@ -2,7 +2,7 @@
   <div class="row mt-5">
     <div class="col-6">
       <% if @pack.image.attached? %>
-        <img src="<%= url_for(@pack.image) %>" alt="">
+        <img src="<%= url_for(@pack.image) %>" alt="" class="pack_img">
       <% else %>
         <img src="https://via.placeholder.com/640x360?text=No+Image" alt="">
       <% end %>
@@ -21,11 +21,33 @@
 
         <div class="form-group">
           <label for="quantity">수량</label>
-          <input type="number" name="quantity" value="1" min="1" max="10" class="form-control" id="quantity">
+          <select name="quantity" id="quantity" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-outline-dark mt-3 w-100">장바구니 담기</button>
       </form>
     </div>
   </div>
+
+  <script type="text/javascript" charset="utf-8">
+    <% if flash[:notice].present? %>
+      result = confirm("<%= flash[:notice] %>")
+
+      if(result){
+          location.href = "/carts"
+      }
+
+    <% end %>
+  </script>
 </div>
