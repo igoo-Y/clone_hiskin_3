@@ -1,2 +1,73 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-5">
+    <h3>주문 정보 확인</h3>
+      <% @order.order_items.each do |item| %>
+        <div class="card mt-3">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.pack.product_name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= item.pack.company_name %></h6>
+            <p class="card-text">수량: <%= item.quantity %></p>
+            <a href="#" class="card-link">수정</a>
+            <a href="#" class="card-link">삭제</a>
+            <p class="card-text">가격: <%= number_to_currency(item.quantity * item.pack.price) %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3>배송 정보 확인</h3>
+      <div class="form-group">
+        <label for="">받는 분 성함</label>
+        <input type="text" class="form-control" id="name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="">연락처</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+      </div>
+      <div class="form-group">
+        <label for="">이메일</label>
+        <input type="text" class="form-control" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="" class="d-block mt-3">주소</label>
+        <a href="" class="btn btn-outline-dark" id="search_address_btn">주소 검색</a>
+        <input type="text" class="form-control mt-3" id="post_code" name="post_code" placeholder="우편번호">
+        <input type="text" class="form-control mt-3" id="address_1" name="address_1" placeholder="도로명 주소">
+        <input type="text" class="form-control mt-3" id="address_2" name="address_2" placeholder="상세 주소">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+  $("#search_address_btn").on("click", function (e){
+      e.preventDefault();
+      postCodePopup()
+  })
+
+  function postCodePopup(){
+      new daum.Postcode({
+          oncomplete: function(data) {
+              var addr = ''; // 주소 변수
+
+              //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+              if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                  addr = data.roadAddress;
+              } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                  addr = data.jibunAddress;
+              }
+
+              // 우편번호와 주소 정보를 해당 필드에 넣는다.
+              document.getElementById('post_code').value = data.zonecode;
+              document.getElementById("address_1").value = addr;
+              // 커서를 상세주소 필드로 이동한다.
+              document.getElementById("address_2").focus();
+          }
+      }).open();
+  }
+</script>

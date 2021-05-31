@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mt-5">
-    <div class="cal-12">
-      <h2>장바구니</h2>
+    <div class="col-12">
+      <h2><%= icon("fas", "shopping-cart") %> 장바구니</h2>
       <table class="table table-hover mt-3">
         <thead>
         <tr>
@@ -25,41 +25,46 @@
         </tbody>
       </table>
 
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
       <% if @carts.present? %>
-        <h4 class="mt-5">주문 정보</h4>
+      <h4 class="mt-5">주문 정보</h4>
         <div class="card">
           <div class="card-body">
-            <div class="d-flex justify-content-between mt-3">
-              <h5 class="card-title">상품 합계</h5>
+            <div class="d-flex justify-content-between mb-3">
+              <h6 class="card-title">상품 합계</h6>
               <p class="card-text"><%= number_to_currency(@product_price) %></p>
             </div>
-            <div class="d-flex justify-content-between mt-3">
-              <h5 class="card-title">배송비</h5>
+            <div class="d-flex justify-content-between mb-3">
+              <h6 class="card-title">배송비</h6>
               <p class="card-text"><%= number_to_currency(@shipping_fee) %></p>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between mt-3">
-              <h5 class="card-title">최종 결제 금액</h5>
-              <p class="card-text"><%= number_to_currency(@total_price) %></p>
-            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <h6 class="card-title">최종 결제 금액</h6>
+            <p class="card-text"><%= number_to_currency(@total_price) %></p>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-6">
+            <a href="/packs" class="btn btn-outline-dark">장바구니 담으러 가기</a>
+          </div>
+          <div class="col-6 d-flex justify-content-end">
+            <form action="/orders" method="post">
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+              <% @carts.each do |cart| %>
+                <input type="hidden" name="cart_id[]" value="<%= cart.id %>">
+              <% end %>
+              <button type="submit" class="btn btn-outline-dark">주문하기</button>
+            </form>
           </div>
         </div>
       <% end %>
-
-      <div class="row mt-5">
-        <div class="col-6">
-          <a href="/packs" class="btn btn-outline-dark">장바구니 담으러 가기</a>
-        </div>
-        <div class="col-6 d-flex justify-content-end">
-          <form action="/orders" method="post">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <% @carts.each do |cart| %>
-              <input type="hidden" name="cart_id[]" value="<%= cart.id %>">
-            <% end %>
-            <button type="submit" class="btn btn-outline-dark">주문하기</button>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 </div>
