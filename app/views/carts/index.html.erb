@@ -37,6 +37,7 @@
               <h5 class="card-title">배송비</h5>
               <p class="card-text"><%= number_to_currency(@shipping_fee) %></p>
             </div>
+            <hr>
             <div class="d-flex justify-content-between mt-3">
               <h5 class="card-title">최종 결제 금액</h5>
               <p class="card-text"><%= number_to_currency(@total_price) %></p>
@@ -44,6 +45,21 @@
           </div>
         </div>
       <% end %>
+
+      <div class="row mt-5">
+        <div class="col-6">
+          <a href="/packs" class="btn btn-outline-dark">장바구니 담으러 가기</a>
+        </div>
+        <div class="col-6 d-flex justify-content-end">
+          <form action="/orders" method="post">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <% @carts.each do |cart| %>
+              <input type="hidden" name="cart_id[]" value="<%= cart.id %>">
+            <% end %>
+            <button type="submit" class="btn btn-outline-dark">주문하기</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
